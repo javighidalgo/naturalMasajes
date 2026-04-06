@@ -8,14 +8,14 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Natural Masajes | Fisioterapia Javier Hidalgo",
+  title: "Natural Masajes Sevilla Este | Centro de Masajes Profesional",
   description:
-    "Fisioterapia clínica, deportiva y masaje integral en Madrid. Tratamientos personalizados basados en evidencia científica para una vida sin dolor.",
+    "Centro de masajes en Sevilla Este. Especialistas en masaje relajante, descarga muscular, reflexología, piedras calientes y más. Fernando Altazubiaga · 657 736 119.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es" className={`${inter.variable}`}>
+    <html lang="es" className={inter.variable}>
       <body>{children}</body>
     </html>
   );
