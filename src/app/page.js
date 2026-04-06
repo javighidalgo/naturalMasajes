@@ -1,81 +1,135 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
+import { Calendar, ChevronRight, Activity, HeartPulse, User } from "lucide-react";
 
 export default function Home() {
-  const [isBarking, setIsBarking] = useState(false);
-
-  const handleBark = () => {
-    setIsBarking(true);
-    // Reproducir un sonido de ladrido
-    const audio = new Audio("https://actions.google.com/sounds/v1/animals/dog_barking.ogg");
-    audio.play().catch(e => console.error("Audio play failed", e));
-    
-    setTimeout(() => {
-      setIsBarking(false);
-    }, 1500);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 flex flex-col items-center justify-center p-4 overflow-hidden relative">
-      
-      {/* Decorative background elements */}
-      <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-      <div className="absolute top-[-10%] right-[-10%] w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-      <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-
-      <div className="relative z-10 text-center w-full max-w-3xl mx-auto mb-16">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 tracking-tight leading-tight drop-shadow-sm mb-6">
-          ¡Hola! Soy tu asistente
-        </h1>
-        <p className="text-xl md:text-2xl text-indigo-800/80 font-medium max-w-2xl mx-auto">
-          Un pequeño descanso antes de empezar con los verdaderos masajes terapéuticos. Haz clic en el perrito para interactuar.
-        </p>
-      </div>
-      
-      <div className="relative z-20 mt-8 mb-24 cursor-pointer group" onClick={handleBark}>
-        {/* Animated Speech Bubble */}
-        <div 
-          className={`absolute -top-32 left-1/2 transform -translate-x-1/2 transition-all duration-300 ease-out z-30 ${
-            isBarking ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-50 translate-y-12 pointer-events-none'
-          }`}
-        >
-          <div className="bg-white rounded-[2rem] px-8 py-6 shadow-2xl relative border-4 border-indigo-50">
-            <p className="text-5xl font-black text-indigo-600 whitespace-nowrap animate-bounce" style={{textShadow: '0 2px 10px rgba(79, 70, 229, 0.2)'}}>
-              ¡GUAU! 🐶
-            </p>
-            {/* Bubble Tail */}
-            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[20px] border-l-transparent border-t-[24px] border-t-white border-r-[20px] border-r-transparent filter drop-shadow-xl"></div>
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-200">
+      {/* Navbar Minimalista */}
+      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="text-2xl font-black tracking-tighter text-slate-800">
+            Natural<span className="text-emerald-600">Masajes.</span>
           </div>
+          <button className="hidden md:flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-emerald-600/20 active:scale-95">
+            <Calendar className="w-5 h-5" />
+            <span>Pedir Cita</span>
+          </button>
         </div>
+      </nav>
 
-        {/* Puppy Image */}
-        <div className={`relative transition-all duration-[400ms] ${isBarking ? 'scale-110 -translate-y-8 rotate-3 shadow-2xl' : 'hover:scale-105 hover:-translate-y-2'} rounded-[3rem] overflow-hidden shadow-xl bg-white/70 border-8 border-white backdrop-blur-sm z-20`}>
+      {/* Hero Section */}
+      <main className="relative w-full min-h-[85vh] bg-white flex items-center overflow-hidden">
+        {/* Hero Background Image */}
+        <div className="absolute inset-0 z-0">
           <Image 
-            src="/puppy.png" 
-            alt="Perrito muy mono" 
-            width={400} 
-            height={400} 
-            className="object-cover w-64 h-64 md:w-80 md:h-80 transition-transform duration-700 ease-in-out group-hover:scale-110"
-            priority
+            src="/hero.png" 
+            alt="Clínica de Fisioterapia - Espacio luminoso y limpio" 
+            fill 
+            className="object-cover object-center opacity-40 mix-blend-multiply" 
+            priority 
           />
+          {/* Gradients to fade image smoothly into white */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50"></div>
         </div>
 
-        {/* Pulse rings */}
-        {isBarking && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center">
-            <div className="w-full h-full rounded-[3rem] border-4 border-indigo-400 absolute animate-ping opacity-75"></div>
-            <div className="w-[120%] h-[120%] rounded-[3rem] border-4 border-purple-400 absolute animate-ping opacity-40" style={{animationDelay: '150ms'}}></div>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full pt-12 pb-24 md:py-0">
+          <div className="max-w-2xl bg-white/5 backdrop-blur-3xl p-2 sm:p-8 rounded-[3rem] border border-white/50 shadow-2xl animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100/90 text-emerald-800 font-bold text-xs uppercase tracking-widest mb-6 shadow-sm border border-emerald-200/50">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              Nuevas horas disponibles
+            </div>
+
+            <h1 className="text-6xl md:text-[5rem] md:leading-[1.05] font-extrabold tracking-tight text-slate-900">
+              Tu bienestar,<br/>
+              <span className="text-emerald-600 bg-clip-text">nuestra prioridad.</span>
+            </h1>
+            
+            <p className="mt-8 text-xl text-slate-600 leading-relaxed font-medium">
+              Fisioterapia clínica, deportiva y masaje integral. Nos basamos en la evidencia científica para aplicar tratamientos personalizados que te ayuden a disfrutar de una vida sin dolor.
+            </p>
+            
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+               <button className="group flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-full font-bold transition-all shadow-xl hover:-translate-y-1">
+                  Reservar sesión
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+               </button>
+               <button className="flex items-center justify-center gap-2 bg-white/80 hover:bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-full font-bold transition-all shadow-sm hover:shadow-md">
+                  Nuestros servicios
+               </button>
+            </div>
           </div>
-        )}
-
-        {/* Hint text on hover */}
-        <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-indigo-900/90 backdrop-blur text-white px-6 py-3 rounded-full font-semibold shadow-xl border border-white/20 whitespace-nowrap">
-          👆 ¡Toca para saludar!
         </div>
-      </div>
-      
+      </main>
+
+      {/* Sobre Mí Section */}
+      <section className="py-32 bg-slate-50 relative">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row gap-16 lg:gap-24 items-center">
+            
+            {/* Image Block */}
+            <div className="w-full md:w-5/12 flex justify-center relative">
+              <div className="relative w-full aspect-[4/5] max-w-sm rounded-[3rem] bg-indigo-50 overflow-hidden shadow-2xl transform md:-rotate-3 transition-transform hover:rotate-0 duration-500">
+                <div className="absolute inset-0 bg-emerald-100 flex items-center justify-center text-emerald-200/50">
+                   <User className="w-48 h-48" />
+                </div>
+                {/* Text overlay since no real human photo yet */}
+                <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-3xl text-center border border-white/50 shadow-sm">
+                  <h4 className="font-bold text-slate-900 tracking-tight">Javier Hidalgo</h4>
+                  <p className="text-sm font-medium text-emerald-600">Fisioterapeuta Titulado</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Text Content */}
+            <div className="w-full md:w-7/12">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="w-12 h-px bg-emerald-600"></span>
+                <h2 className="text-emerald-700 font-bold tracking-widest text-sm uppercase">Sobre Mí</h2>
+              </div>
+              <h3 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-8">
+                Más allá de aliviar los síntomas.
+              </h3>
+              
+              <div className="space-y-6 text-xl text-slate-600 leading-relaxed font-light">
+                <p>
+                  Mi objetivo en <strong className="font-semibold text-slate-900">Natural Masajes</strong> es ir mucho más allá del alivio a corto plazo. Buscamos detectar, evaluar e intervenir en el origen de tu problema.
+                </p>
+                <p>
+                  Especializados en <strong>terapia manual</strong>, <strong>punción seca</strong> y masajes terapéuticos de alto impacto. Ya seas deportista, o sufras dolor proveniente del estrés diario, diseñaremos un plan integral a tu medida.
+                </p>
+              </div>
+
+              <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                  <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5">
+                    <Activity className="w-7 h-7" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-lg">Diagnóstico</h4>
+                  <p className="text-slate-500 mt-2 font-medium">Análisis detallado de tu movilidad para una recuperación certera.</p>
+                </div>
+                
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                  <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-5">
+                    <HeartPulse className="w-7 h-7" />
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-lg">Trato Humano</h4>
+                  <p className="text-slate-500 mt-2 font-medium">Nos preocupamos genuinamente por escuchar a tu cuerpo de forma cercana.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Footer Minimalista */}
+      <footer className="bg-slate-900 text-slate-400 py-12 text-center">
+        <p className="font-medium">© {new Date().getFullYear()} Natural Masajes & Fisioterapia Javier Hidalgo.</p>
+      </footer>
     </div>
   );
 }
